@@ -1,0 +1,29 @@
+{
+    "name": "staging",
+    "account": "sakaigerstaging",
+    "datacenter": "eu-ams-1",
+    "nodes": {
+        "activity-cache": 1,
+        "cache": 1,
+        "app": 4,
+        "activity": 3,
+        "pp": 3,
+        "db": 3,
+        "mq": 1,
+        "search": 2,
+        "proxy": 1,
+        "web": 1,
+        "puppet": ["puppet"],
+        "syslog": ["syslog"],
+        "monitor": ["monitor"],
+        "bastion": ["bastion"]
+    },
+    "provisionGroups": [
+        ["puppet"],
+        ["/^activity-cache/", "/^cache/", "/^db/", "/^mq/", "/^search/", "syslog", "monitor", "bastion"],
+        ["/^proxy/"],
+        ["app0"],
+        ["/^app/", "/^pp/", "/^activity/"],
+        ["/^web/"]
+    ]
+}

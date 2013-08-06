@@ -1,0 +1,15 @@
+{
+    "name": "qa",
+    "account": "sakaigerqa",
+    "datacenter": "eu-ams-1",
+    "nodes": {
+        "puppet": ["puppet"],
+        "qa": 2,
+        "unit": 1,
+        "release": 1
+    },
+    "provisionGroups": [
+        ["puppet"],
+        ["/.*/"]
+    ]
+}
