@@ -1,1 +1,3 @@
 *_hiera_secure*
+*.pyc
+fabfile/setup.py

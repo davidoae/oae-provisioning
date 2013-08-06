@@ -12,7 +12,7 @@ env.connection_attempts = 6
 @task
 def ulous(environment):
     """Bootstrap and completely provision an OAE environment"""
-    slapchop.bootstrap(environment=environment)
+    slapchop.bootstrap(environment=environment, yes=True)
     slapchop.fabric_setup(environment=environment)
     execute(internal_provision_puppet, environment=environment, hosts=[env.puppet_host])
     internal_provision_machines(environment=environment, puppet_ip=env.puppet_internal_ip)
@@ -21,7 +21,7 @@ def ulous(environment):
 @task
 def provision_puppet(environment):
     """Bootstrap and provision the puppet machine for the specified environment"""
-    slapchop.bootstrap(environment=environment, machine_names=['puppet'])
+    slapchop.bootstrap(environment=environment, machine_names=['puppet'], yes=True)
     slapchop.fabric_setup(environment=environment)
     execute(internal_provision_puppet, environment=environment, hosts=[env.puppet_host])
 
@@ -30,7 +30,7 @@ def provision_puppet(environment):
 def provision_machines(environment, machine_names=None):
     """Bootstrap and provision the specified machines (by name) for the specified environment"""
     machine_names = slapchop.to_machine_array(machine_names)
-    slapchop.bootstrap(environment=environment, machine_names=machine_names)
+    slapchop.bootstrap(environment=environment, machine_names=machine_names, yes=True)
     slapchop.fabric_setup(environment=environment)
     internal_provision_machines(environment=environment, machine_names=machine_names, puppet_ip=env.puppet_internal_ip)
 
@@ -43,16 +43,16 @@ def internal_provision_puppet(environment):
     put('scripts/puppet-afterreboot.sh', 'puppet-afterreboot.sh', mode=0755)
 
     # Run the before reboot, reboot, then the after reboot
-    run('./puppet-beforereboot.sh', quiet=True)
+    run('./puppet-beforereboot.sh')
     slapchop.reboot(environment=environment, machine_names=['puppet'], yes=True)
 
     print 'Running puppet provisioning script. This will take some time and be silent. Hang in there.'
-    run('./puppet-afterreboot.sh %s' % environment, quiet=True)
+    run('./puppet-afterreboot.sh %s' % environment)
 
     # Download Java
     print 'Downloading jdk6 on to the puppet machine. This will take some time and be silent. Hang in there.'
     with cd('/etc/puppet/puppet-hilary/modules/oracle-java/files'):
-        run('wget https://s3.amazonaws.com/oae-performance-files/jdk-6u45-linux-x64.bin', quiet=True)
+        run('wget https://s3.amazonaws.com/oae-performance-files/jdk-6u45-linux-x64.bin')
 
     # Place the common_hiera_secure if one is specified
     hiera_secure_path = '%s/common_hiera_secure.json' % environment
@@ -89,4 +89,4 @@ def internal_provision_machine(environment, puppet_ip, provision_group):
     put('scripts/ubuntu.sh', 'ubuntu.sh', mode=0755)
 
     print 'Running machine provisioning script. This will take some time and be silent. Hang in there.'
-    run('./ubuntu.sh %s %s %s' % (environment, name, puppet_ip), quiet=True)
+    run('./ubuntu.sh %s %s %s' % (environment, name, puppet_ip))
