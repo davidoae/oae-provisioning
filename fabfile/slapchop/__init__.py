@@ -41,11 +41,12 @@ def to_machine_array(machine_names=None):
 
 
 def get_slapchop_args(machine_names=None, yes=False):
-    machine_names = to_machine_array(machine_names)
-    if machine_names == None:
-        return ''
+    args = ''
 
-    args = '-i %s' % ' -i '.join(machine_names)
+    machine_names = to_machine_array(machine_names)
+    if machine_names != None:
+        args = '-i %s' % ' -i '.join(machine_names)
+
     if yes:
         args += ' -y'
 
