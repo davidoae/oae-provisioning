@@ -21,10 +21,12 @@
     },
     "provisionGroups": [
         ["puppet"],
-        ["/^activity-cache/", "/^cache/", "/^db/", "/^mq/", "/^search/", "syslog", "monitor", "bastion"],
+        ["syslog"],
+        ["/^activity-cache/", "/^cache/", "/^db/", "/^mq/", "/^search/", "monitor", "bastion"],
         ["/^proxy/", "/^etherpad/"],
         ["app0"],
-        ["/^app/", "/^pp/", "/^activity/"],
-        ["/^web/"]
+        ["/^app/", "/^activity/"],
+        ["/^web/"],
+        ["/^pp/"]
     ]
 }
