@@ -17,7 +17,7 @@
         "puppet": ["puppet"],
         "search": 2,
         "syslog": ["syslog"],
-        "web": 1
+        "web": 2
     },
     "provisionGroups": [
         ["puppet"],
