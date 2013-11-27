@@ -4,7 +4,7 @@
     "datacenter": "eu-ams-1",
     "nodes": {
         "puppet": ["puppet"],
-        "qa": 2,
+        "qa": 3,
         "unit": 1,
         "release": 1
     },
