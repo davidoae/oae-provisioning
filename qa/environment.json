@@ -4,9 +4,10 @@
     "datacenter": "eu-ams-1",
     "nodes": {
         "puppet": ["puppet"],
-        "qa": 3,
+        "qa": 4,
         "unit": 1,
-        "release": 1
+        "release": 1,
+        "workshop": ["workshop"]
     },
     "provisionGroups": [
         ["puppet"],

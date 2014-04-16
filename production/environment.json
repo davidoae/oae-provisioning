@@ -1,7 +1,7 @@
 {
-    "name": "",
-    "account": "",
-    "datacenter": "",
+    "name": "production",
+    "account": "sakaigerproduction",
+    "datacenter": "eu-ams-1",
     "nodes": {
         "activity": 3,
         "activity-cache": 2,

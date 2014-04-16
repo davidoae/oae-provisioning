@@ -16,12 +16,10 @@
         "proxy": 1,
         "puppet": ["puppet"],
         "search": 1,
-        "syslog": ["syslog"],
         "web": 1
     },
     "provisionGroups": [
         ["puppet"],
-        ["syslog"],
         ["/^activity-cache/", "/^cache/", "/^db/", "/^mq/", "/^search/", "monitor", "bastion"],
         ["/^proxy/", "/^etherpad/"],
         ["app0"],
