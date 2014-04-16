@@ -35,6 +35,12 @@
             "package": "Sakaiger_512MB"
         }
     },
+    "monitor": {
+        "system": {
+            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "package": "Sakaiger_4GB"
+        }
+    },
     "mq": {
         "system": {
             "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",

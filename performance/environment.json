@@ -5,7 +5,7 @@
     "nodes": {
         "activity": 3,
         "activity-cache": 1,
-        "app": 8,
+        "app": 4,
         "cache": 1,
         "etherpad": 3,
         "db": 4,
