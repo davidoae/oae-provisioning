@@ -3,19 +3,19 @@
     "account": "sakaigerstaging",
     "datacenter": "eu-ams-1",
     "nodes": {
-        "activity": 1,
+        "activity": 3,
         "activity-cache": 1,
-        "app": 1,
+        "app": 4,
         "bastion": ["bastion"],
         "cache": 1,
         "etherpad": 3,
         "db": 3,
         "monitor": ["monitor"],
         "mq": 1,
-        "pp": 1,
+        "pp": 3,
         "proxy": 1,
         "puppet": ["puppet"],
-        "search": 1,
+        "search": 2,
         "web": 1
     },
     "provisionGroups": [
