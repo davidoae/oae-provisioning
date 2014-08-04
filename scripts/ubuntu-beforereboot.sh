@@ -54,7 +54,7 @@ cat > /etc/default/puppet <<EOF
 # Defaults for puppet - sourced by /etc/init.d/puppet
 
 # Start puppet on boot?
-START=yes
+START=no
 
 # Startup options
 DAEMON_OPTS=""

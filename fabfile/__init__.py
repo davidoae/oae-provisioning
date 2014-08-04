@@ -34,7 +34,6 @@ def provision_machines(environment, machine_names=None):
     slapchop.fabric_setup(environment=environment)
     internal_provision_machines(environment=environment, machine_names=machine_names, puppet_ip=env.puppet_internal_ip)
 
-
 @task
 def internal_provision_puppet(environment):
 
@@ -78,6 +77,9 @@ def internal_provision_machines(environment, puppet_ip, machine_names=None):
             slapchop.reboot(environment=environment, machine_names=provision_group['names'], yes=True)
             execute(puppet.run, hosts=provision_group['hosts'])
 
+            # Ensure that puppet is turned back on after a reboot
+            run('./ubuntu-afterreboot.sh %s' % environment)
+
             # Rebooting again will help pick up service or OS configuration changes that puppet performed that require restarts
             slapchop.reboot(environment=environment, machine_names=provision_group['names'], yes=True)
 
@@ -86,7 +88,8 @@ def internal_provision_machines(environment, puppet_ip, machine_names=None):
 @parallel
 def internal_provision_machine(environment, puppet_ip, provision_group):
     name = provision_group['names'][provision_group['hosts'].index(env.host_string)]
-    put('scripts/ubuntu.sh', 'ubuntu.sh', mode=0755)
+    put('scripts/ubuntu-beforereboot.sh', 'ubuntu-beforereboot.sh', mode=0755)
+    put('scripts/ubuntu-afterreboot.sh', 'ubuntu-afterreboot.sh', mode=0755)
 
     print 'Running machine provisioning script. This will take some time and be silent. Hang in there.'
-    run('./ubuntu.sh %s %s %s' % (environment, name, puppet_ip))
+    run('./ubuntu-beforereboot.sh %s %s %s' % (environment, name, puppet_ip))
