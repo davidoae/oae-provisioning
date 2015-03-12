@@ -30,7 +30,7 @@ def provision_puppet(environment):
 def provision_machines(environment, machine_names=None):
     """Bootstrap and provision the specified machines (by name) for the specified environment"""
     machine_names = slapchop.to_machine_array(machine_names)
-    #slapchop.bootstrap(environment=environment, machine_names=machine_names, yes=True)
+    slapchop.bootstrap(environment=environment, machine_names=machine_names, yes=True)
     slapchop.fabric_setup(environment=environment)
     internal_provision_machines(environment=environment, machine_names=machine_names, puppet_ip=env.puppet_internal_ip)
 
