@@ -42,7 +42,7 @@ pluginsync=true
 [master]
 # These are needed when the puppetmaster is run by passenger
 # and can safely be removed if webrick is used.
-ssl_client_header = SSL_CLIENT_S_DN 
+ssl_client_header = SSL_CLIENT_S_DN
 ssl_client_verify_header = SSL_CLIENT_VERIFY
 
 [agent]
@@ -54,7 +54,7 @@ cat > /etc/default/puppet <<EOF
 # Defaults for puppet - sourced by /etc/init.d/puppet
 
 # Start puppet on boot?
-START=no
+START=yes
 
 # Startup options
 DAEMON_OPTS=""

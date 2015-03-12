@@ -73,12 +73,19 @@ def internal_provision_machines(environment, puppet_ip, machine_names=None):
 
         # Only provision if anything was left in this array
         if (len(provision_group['names']) > 0):
+            # Prepare the machine
             execute(internal_provision_machine, environment=environment, puppet_ip=puppet_ip, provision_group=provision_group, hosts=provision_group['hosts'])
+
+            # Reboot the machine so the hostname can take effect
             slapchop.reboot(environment=environment, machine_names=provision_group['names'], yes=True)
+
+            # Register the machine with the puppet master node and apply the puppet catalogue
             execute(puppet.run, hosts=provision_group['hosts'])
 
-            # Ensure that puppet is turned back on after a reboot
-            execute(internal_provision_machine_after, environment=environment, hosts=provision_group['hosts'])
+            # Run puppet again so each machine in the host group knows the other machines their hostname
+            # Note that we can't do this after a reboot as the firewall rules would've taken effect and we
+            # wouldn't be able to SSH in anymore (at least no directly)
+            execute(puppet.run, hosts=provision_group['hosts'])
 
             # Rebooting again will help pick up service or OS configuration changes that puppet performed that require restarts
             slapchop.reboot(environment=environment, machine_names=provision_group['names'], yes=True)
@@ -89,10 +96,6 @@ def internal_provision_machines(environment, puppet_ip, machine_names=None):
 def internal_provision_machine(environment, puppet_ip, provision_group):
     name = provision_group['names'][provision_group['hosts'].index(env.host_string)]
     put('scripts/ubuntu-beforereboot.sh', 'ubuntu-beforereboot.sh', mode=0755)
-    put('scripts/ubuntu-afterreboot.sh', 'ubuntu-afterreboot.sh', mode=0755)
 
     print 'Running machine provisioning script. This will take some time and be silent. Hang in there.'
     run('./ubuntu-beforereboot.sh %s %s %s' % (environment, name, puppet_ip))
-
-def internal_provision_machine_after(environment):
-    run('./ubuntu-afterreboot.sh %s' % environment)
