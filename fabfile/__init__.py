@@ -83,11 +83,6 @@ def internal_provision_machines(environment, puppet_ip, machine_names=None):
             # Register the machine with the puppet master node and apply the puppet catalogue
             execute(puppet.run, hosts=provision_group['hosts'])
 
-            # Run puppet again so each machine in the host group knows the other machines their hostname
-            # Note that we can't do this after a reboot as the firewall rules would've taken effect and we
-            # wouldn't be able to SSH in anymore (at least no directly)
-            execute(puppet.run, hosts=provision_group['hosts'])
-
             # Rebooting again will help pick up service or OS configuration changes that puppet performed that require restarts
             slapchop.reboot(environment=environment, machine_names=provision_group['names'], yes=True)
 
