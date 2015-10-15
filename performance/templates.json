@@ -26,7 +26,13 @@
     "db": {
         "system": {
             "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
-            "package": "Sakaiger_8GB"   
+            "package": "Sakaiger_8GB"
+        }
+    },
+    "driver": {
+        "system": {
+            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "package": "Sakaiger_4GB"
         }
     },
     "etherpad": {
@@ -44,13 +50,13 @@
     "mq": {
         "system": {
             "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
-            "package": "Sakaiger_512MB"   
+            "package": "Sakaiger_512MB"
         }
     },
     "pp": {
         "system": {
             "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
-            "package": "Sakaiger_1GB"   
+            "package": "Sakaiger_1GB"
         }
     },
     "proxy": {
@@ -68,7 +74,7 @@
     "search": {
         "system": {
             "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
-            "package": "Sakaiger_4GB"   
+            "package": "Sakaiger_4GB"
         }
     },
     "syslog": {

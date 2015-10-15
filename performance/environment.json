@@ -9,6 +9,7 @@
         "cache": 1,
         "etherpad": 3,
         "db": 3,
+        "driver": ["driver"],
         "monitor": ["monitor"],
         "mq": 1,
         "pp": 3,
@@ -19,7 +20,7 @@
     },
     "provisionGroups": [
         ["puppet"],
-        ["/^activity-cache/", "/^cache/", "/^db/", "/^mq/", "/^search/", "monitor"],
+        ["/^activity-cache/", "/^cache/", "/^db/", "/^mq/", "/^search/", "monitor", "driver"],
         ["/^proxy/", "/^etherpad/"],
         ["app0"],
         ["/^app/", "/^pp/", "/^activity/"],
