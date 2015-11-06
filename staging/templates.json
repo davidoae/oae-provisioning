@@ -2,7 +2,7 @@
     "activity": {
         "system": {
             "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
-            "package": "Sakaigerstaging_512MB"
+            "package": "Sakaigerstaging_1GB"
         }
     },
     "activity-cache": {
@@ -14,7 +14,7 @@
     "app": {
         "system": {
             "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
-            "package": "Sakaigerstaging_512MB"
+            "package": "Sakaigerstaging_1GB"
         }
     },
     "bastion": {
@@ -32,7 +32,7 @@
     "db": {
         "system": {
             "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
-            "package": "Sakaigerstaging_8GB"   
+            "package": "Sakaigerstaging_8GB"
         }
     },
     "etherpad": {
@@ -50,13 +50,13 @@
     "mq": {
         "system": {
             "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
-            "package": "Sakaigerstaging_512MB"   
+            "package": "Sakaigerstaging_512MB"
         }
     },
     "pp": {
         "system": {
             "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
-            "package": "Sakaigerstaging_1GB"   
+            "package": "Sakaigerstaging_1GB"
         }
     },
     "proxy": {
@@ -74,7 +74,7 @@
     "search": {
         "system": {
             "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
-            "package": "Sakaigerstaging_4GB"   
+            "package": "Sakaigerstaging_4GB"
         }
     },
     "syslog": {
