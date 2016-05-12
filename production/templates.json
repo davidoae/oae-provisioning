@@ -1,91 +1,91 @@
 {
     "activity": {
         "system": {
-            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
             "package": "Sakaigerproduction_1GB"
         }
     },
     "activity-cache": {
         "system": {
-            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
             "package": "Sakaigerproduction_2GB"
         }
     },
     "app": {
         "system": {
-            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
             "package": "Sakaigerproduction_1GB"
         }
     },
     "bastion": {
         "system": {
-            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
             "package": "Sakaigerproduction_512MB"
         }
     },
     "cache": {
         "system": {
-            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
             "package": "Sakaigerproduction_512MB"
         }
     },
     "db": {
         "system": {
-            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
             "package": "Sakaigerproduction_8GB"
         }
     },
     "etherpad": {
         "system": {
-            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
             "package": "Sakaigerproduction_512MB"
         }
     },
     "monitor": {
         "system": {
-            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
             "package": "Sakaigerproduction_4GB"
         }
     },
     "mq": {
         "system": {
-            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
             "package": "Sakaigerproduction_512MB"
         }
     },
     "pp": {
         "system": {
-            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
             "package": "Sakaigerproduction_1GB"
         }
     },
     "proxy": {
         "system": {
-            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
             "package": "Sakaigerproduction_512MB"
         }
     },
     "puppet": {
         "system": {
-            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
             "package": "Sakaigerproduction_4GB"
         }
     },
     "search": {
         "system": {
-            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
             "package": "Sakaigerproduction_4GB"
         }
     },
     "syslog": {
         "system": {
-            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
             "package": "Sakaigerproduction_512MB"
         }
     },
     "web": {
         "system": {
-            "datasetUrn": "sdc:jpc:ubuntu-12.04:2.4.0",
+            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
             "package": "Sakaigerproduction_1GB"
         }
     }
