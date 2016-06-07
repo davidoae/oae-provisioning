@@ -93,9 +93,8 @@ EOF
 # Automatically sign all client certificates. Only machines in our vlan can access the puppet interface
 echo "*" > /etc/puppet/autosign.conf
 
-git clone git://github.com/davidoae/puppet-hilary /etc/puppet/puppet-hilary
+git clone git://github.com/oaeproject/puppet-hilary /etc/puppet/puppet-hilary
 cd /etc/puppet/puppet-hilary
-git checkout updateKick
 git fetch origin
 bin/pull.sh
 
