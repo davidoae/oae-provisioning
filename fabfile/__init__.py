@@ -52,7 +52,7 @@ def internal_provision_puppet(environment):
     # Download Java
     print 'Downloading jdk6 on to the puppet machine. This will take some time and be silent. Hang in there.'
     with cd('/etc/puppet/puppet-hilary/modules/oracle-java/files'):
-        run('wget https://s3-eu-west-1.amazonaws.com/oae-performance-files/jdk-7u65-linux-x64.gz')
+        run('wget --no-verbose https://s3-eu-west-1.amazonaws.com/oae-performance-files/jdk-7u65-linux-x64.gz')
 
     # Place the common_hiera_secure if one is specified
     hiera_secure_path = '%s/common_hiera_secure.json' % environment

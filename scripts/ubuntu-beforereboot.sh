@@ -16,16 +16,16 @@ sed -i "s/^127\.0\.1\.1[[:space:]]*localhost/127.0.1.1 $SCRIPT_HOSTNAME localhos
 echo "$SCRIPT_PUPPET_INTERNAL_IP puppet" >> /etc/hosts
 
 mkdir /var/lib/apt/lists/
-apt-get -q update
+apt-get -qq update
 
 # First include the puppet apt repo
 cd /tmp
-wget http://apt.puppetlabs.com/puppetlabs-release-precise.deb
+wget --no-verbose http://apt.puppetlabs.com/puppetlabs-release-precise.deb
 dpkg -i puppetlabs-release-precise.deb
-apt-get -q update
+apt-get -qq update
 
 # install puppet 3.1.1 and python-software-properties for add-apt-repository
-apt-get -q -y install puppet python-software-properties
+apt-get -qq -y install puppet python-software-properties
 
 # Now install puppet
 
@@ -65,7 +65,7 @@ URL="http://production.cf.rubygems.org/rubygems/rubygems-1.3.7.tgz"
 PACKAGE=$(echo $URL | sed "s/\.[^\.]*$//; s/^.*\///")
 
 cd $(mktemp -d /tmp/install_rubygems.XXXXXXXXXX) && \
-wget -c -t10 -T20 -q $URL && \
+wget -c -t10 -T20 --no-verbose $URL && \
 tar xfz $PACKAGE.tgz && \
 cd $PACKAGE && \
 ruby setup.rb
@@ -75,13 +75,13 @@ gem install stomp
 
 # Open up the puppet devel repos
 sed -i 's/# deb /deb /g' /etc/apt/sources.list.d/puppetlabs.list
-apt-get -q update
+apt-get -qq update
 
 # MCollective server (i.e., on each of the cluster nodes)
-apt-get -q -y install mcollective
+apt-get -qq -y install mcollective
 
 # Agent plugins
-apt-get -q -y install mcollective-puppet-agent mcollective-package-agent mcollective-service-agent mcollective-nrpe-agent
+apt-get -qq -y install mcollective-puppet-agent mcollective-package-agent mcollective-service-agent mcollective-nrpe-agent
 
 # MCollective config
 cat > /etc/mcollective/server.cfg <<EOF

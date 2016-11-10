@@ -8,7 +8,7 @@ import fabric
 def run():
     """Immediately start a puppet run, force-stopping any currently running puppet run."""
     stop()
-    fabric.api.run('puppet agent -t', warn_only=True)
+    fabric.api.run('puppet agent --no-daemonize --onetime --verbose', warn_only=True)
     fabric.api.run('service puppet start')
 
 
@@ -16,7 +16,8 @@ def run():
 @parallel
 def stop():
     # Stop the service
-    fabric.api.run('service puppet stop')
+    # added warn_only as was getting random 'Fatal error' at this point
+    fabric.api.run('service puppet stop', warn_only=True)
 
     # pgrep puppet -c returns the number of puppet processes that are
     # running. If it isn't 0, we need to pkill them
