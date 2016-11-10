@@ -11,15 +11,22 @@ SCRIPT_ENVIRONMENT=$1
 # Install the puppetlabs repos
 chmod 1777 /tmp
 cd /tmp
-wget http://apt.puppetlabs.com/puppetlabs-release-precise.deb
+wget --no-verbose http://apt.puppetlabs.com/puppetlabs-release-precise.deb
 dpkg -i puppetlabs-release-precise.deb
 
 # Pull in packages from the puppetlabs repos
-apt-get update
+apt-get -qq update
 
-# Install git and puppetmaster
-apt-get install -y git puppetmaster-passenger puppetdb puppetdb-terminus
-puppet module install puppetlabs/puppetdb
+# Install git and puppetmaster, ensuring right version of libapache2-mod-passenger
+apt-get -qq -y install git puppetmaster-passenger puppetdb puppetdb-terminus libapache2-mod-passenger=2.2.11debian-2 python-software-properties
+# some of these cause issues on the latest version so have set versions specifically
+puppet module install puppetlabs-stdlib --version 4.5.1
+puppet module install puppetlabs-concat --version 1.2.0
+puppet module install puppetlabs-apt --version 1.8.0
+puppet module install puppetlabs-firewall --version 1.4.0
+puppet module install puppetlabs-postgresql --version 4.2.0
+puppet module install puppetlabs-inifile --version 1.2.0
+puppet module install puppetlabs-puppetdb --version 4.1.0
 
 # Configure PuppetMaster
 cat > /etc/puppet/puppet.conf <<EOF
@@ -86,10 +93,17 @@ EOF
 # Automatically sign all client certificates. Only machines in our vlan can access the puppet interface
 echo "*" > /etc/puppet/autosign.conf
 
-git clone git://github.com/oaeproject/puppet-hilary /etc/puppet/puppet-hilary
+git clone --quiet git://github.com/oaeproject/puppet-hilary /etc/puppet/puppet-hilary
 cd /etc/puppet/puppet-hilary
 git fetch origin
 bin/pull.sh
+
+# an attempt to give the admin time to upload common_hiera_secure.json
+myiptemp="$(ip a show dev eth0 | awk '/inet / { print $2 }')"
+echo "Waiting 30s to give time for admin to upload common_hiera_secure.json"
+echo "Try this;"
+echo "  scp common_hiera_secure.json root@${myiptemp%%/*}:/etc/puppet/puppet-hilary/environments/${SCRIPT_ENVIRONMENT}/hiera/common_hiera_secure.json"
+sleep 30
 
 ## Puppet Dashboard
 
@@ -97,20 +111,20 @@ bin/pull.sh
 echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
 echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections
 
-apt-get install -y build-essential irb libmysql-ruby libmysqlclient-dev libopenssl-ruby libreadline-ruby mysql-server rake rdoc ri ruby ruby-dev
+apt-get -qq -y install build-essential irb libmysql-ruby libmysqlclient-dev libopenssl-ruby libreadline-ruby mysql-server rake rdoc ri ruby ruby-dev
 
 # Install rubygems (do not use the installation that came w/ OS)
 URL="http://production.cf.rubygems.org/rubygems/rubygems-1.3.7.tgz"
 PACKAGE=$(echo $URL | sed "s/\.[^\.]*$//; s/^.*\///")
 
 cd $(mktemp -d /tmp/install_rubygems.XXXXXXXXXX) && \
-wget -c -t10 -T20 -q $URL && \
+wget -c -t10 -T20 --no-verbose $URL && \
 tar xfz $PACKAGE.tgz && \
 cd $PACKAGE && \
 ruby setup.rb
 
 update-alternatives --install /usr/bin/gem gem /usr/bin/gem1.8 1
-apt-get install -y puppet-dashboard
+apt-get -qq -y install puppet-dashboard
 
 # Create 'dashboard' user with password 'dashboard'
 mysql -u root -proot -e "CREATE DATABASE dashboard CHARACTER SET utf8;"
@@ -205,11 +219,11 @@ service puppet-dashboard-workers start
 
 
 # Install mcollective server *AND CLIENT* (Client is the one that communicates with all the other nodes)
-apt-get -y install openjdk-6-jre
+apt-get -qq -y install openjdk-6-jre
 
 cd /opt
-wget http://archive.apache.org/dist/activemq/apache-activemq/5.8.0/apache-activemq-5.8.0-bin.tar.gz
-tar -zxvf apache-activemq-5.8.0-bin.tar.gz
+wget --no-verbose http://archive.apache.org/dist/activemq/apache-activemq/5.8.0/apache-activemq-5.8.0-bin.tar.gz
+tar -zxf apache-activemq-5.8.0-bin.tar.gz
 mv apache-activemq-5.8.0 activemq
 
 cat > activemq/conf/activemq.xml <<EOF
@@ -354,14 +368,14 @@ ln -s /opt/activemq/bin/linux-x86-64/activemq /etc/init.d/activemq
 
 # Open up the puppet devel repos
 sed -i 's/# deb /deb /g' /etc/apt/sources.list.d/puppetlabs.list
-apt-get update
+apt-get -qq update
 
 # mcollective packages
-gem install stomp
-apt-get -y install mcollective mcollective-client
+gem install stomp --quiet
+apt-get -qq -y install mcollective mcollective-client
 
 # mcollective plugins
-apt-get -y install mcollective-puppet-client mcollective-package-client mcollective-service-client
+apt-get -qq -y install mcollective-puppet-client mcollective-package-client mcollective-service-client
 
 cat > /etc/mcollective/client.cfg <<EOF
 # main config
