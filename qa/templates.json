@@ -2,31 +2,31 @@
     "qa": {
         "system": {
             "datasetUrn": "d2ba0f30-bbe8-11e2-a9a2-6bc116856d85",
-            "package": "g3-standard-3.75-kvm"
+            "package": "k4-general-kvm-3.75G"
         }
     },
     "release": {
         "system": {
             "datasetUrn": "d2ba0f30-bbe8-11e2-a9a2-6bc116856d85",
-            "package": "g3-standard-3.75-kvm"
+            "package": "k4-general-kvm-3.75G"
         }
     },
     "unit": {
         "system": {
             "datasetUrn": "d2ba0f30-bbe8-11e2-a9a2-6bc116856d85",
-            "package": "g3-standard-3.75-kvm"
+            "package": "k4-general-kvm-3.75G"
         }
     },
     "puppet": {
         "system": {
             "datasetUrn": "d2ba0f30-bbe8-11e2-a9a2-6bc116856d85",
-            "package": "g3-standard-3.75-kvm"
+            "package": "k4-general-kvm-3.75G"
         }
     },
     "workshop": {
         "system": {
             "datasetUrn": "d2ba0f30-bbe8-11e2-a9a2-6bc116856d85",
-            "package": "g3-standard-3.75-kvm"
+            "package": "k4-general-kvm-3.75G"
         }
     }
 }
