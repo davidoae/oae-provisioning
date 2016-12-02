@@ -100,9 +100,10 @@ bin/pull.sh
 
 # an attempt to give the admin time to upload common_hiera_secure.json
 myiptemp="$(ip a show dev eth0 | awk '/inet / { print $2 }')"
-echo "Waiting 30s to give time for admin to upload common_hiera_secure.json"
+echo -e "\e[0;31mWaiting 30s to give time for admin to upload common_hiera_secure.json"
 echo "Try this;"
 echo "  scp common_hiera_secure.json root@${myiptemp%%/*}:/etc/puppet/puppet-hilary/environments/${SCRIPT_ENVIRONMENT}/hiera/common_hiera_secure.json"
+echo -e "\e[0m"
 sleep 30
 
 ## Puppet Dashboard
