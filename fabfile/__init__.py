@@ -20,6 +20,19 @@ def ulous(environment):
 
 
 @task
+def dbonly(environment):
+    """Provision OAE databse environment suitable for a db restore"""
+    slapchop.bootstrap(environment=environment, machine_names=['puppet','bastion','db0','db1','db2'], yes=True)
+    slapchop.fabric_setup(environment=environment)
+    execute(internal_provision_puppet, environment=environment, hosts=[env.puppet_host])
+    internal_provision_machines(environment=environment, machine_names=['bastion'], puppet_ip=env.puppet_internal_ip)
+    internal_provision_machines(environment=environment, machine_names=['db0','db1','db2'], puppet_ip=env.puppet_internal_ip)
+    # for ssh access to work correctly through bastion it needs to run it's agent again
+
+
+#  provision_puppet does not work as it seems internal_provision_puppet will not run without
+#  additional hosts being bootstrap'd.
+@task
 def provision_puppet(environment):
     """Bootstrap and provision the puppet machine for the specified environment"""
     slapchop.bootstrap(environment=environment, machine_names=['puppet'], yes=True)
@@ -59,6 +72,12 @@ def internal_provision_puppet(environment):
     if (os.path.exists(hiera_secure_path)):
         put(hiera_secure_path, '/etc/puppet/puppet-hilary/environments/%s/hiera/common_hiera_secure.json' % environment)
 
+    # puppet run and start agent
+    # has to be run twice to get puppetdb and nagios running correctly
+    print 'Doing puppet run, twice, for puppetdb and nagios.'
+    run('puppet agent --onetime --verbose --no-daemonize')
+    run('puppet agent --onetime --verbose --no-daemonize')
+    run('service puppet start')
 
 @task
 def internal_provision_machines(environment, puppet_ip, machine_names=None):
