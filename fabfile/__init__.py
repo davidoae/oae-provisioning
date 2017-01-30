@@ -21,7 +21,7 @@ def ulous(environment):
 
 @task
 def dbonly(environment):
-    """Provision OAE databse environment suitable for a db restore"""
+    """Provision OAE database environment suitable for a db restore"""
     slapchop.bootstrap(environment=environment, machine_names=['puppet','bastion','db0','db1','db2'], yes=True)
     slapchop.fabric_setup(environment=environment)
     execute(internal_provision_puppet, environment=environment, hosts=[env.puppet_host])
