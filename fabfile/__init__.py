@@ -8,6 +8,7 @@ from fabric.api import *
 env.disable_known_hosts = True
 env.timeout = 10
 env.connection_attempts = 6
+env.user = 'root'
 
 
 @task
