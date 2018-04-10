@@ -1,117 +1,30 @@
-if [ "$1" = "" -o "$2" = "" -o "$3" = "" ]
+if [ "$1" = "" -o "$2" = "" ]
 then
-  echo "Usage: $0 <environment (production, performance)> <hostname> <puppetmaster internal ip>"
+  echo "Usage: $0 <environment (production, staging)> <hostname>"
   exit
 fi
 
 SCRIPT_ENVIRONMENT=$1
 SCRIPT_HOSTNAME=$2
-SCRIPT_PUPPET_INTERNAL_IP=$3
-
-chmod 1777 /tmp
 
 # Set the host of the machine. Will need a reboot after this
 echo $SCRIPT_HOSTNAME > /etc/hostname
-sed -i "s/^127\.0\.1\.1[[:space:]]*localhost/127.0.1.1 $SCRIPT_HOSTNAME localhost/" /etc/hosts
-echo "$SCRIPT_PUPPET_INTERNAL_IP puppet" >> /etc/hosts
+sed -i "s/^127\.0\.0\.1[[:space:]]*localhost/127.0.0.1 $SCRIPT_HOSTNAME localhost/" /etc/hosts
+# Also allow root access via ssh
+sed -i 's/.* ssh-rsa /ssh-rsa /' /root/.ssh/authorized_keys
 
-mkdir /var/lib/apt/lists/
-apt-get -qq update
-
-# First include the puppet apt repo
-cd /tmp
-wget --no-verbose http://apt.puppetlabs.com/puppetlabs-release-precise.deb
-dpkg -i puppetlabs-release-precise.deb
-apt-get -qq update
-
-# install puppet 3.1.1 and python-software-properties for add-apt-repository
-apt-get -qq -y install puppet python-software-properties
-
-# Now install puppet
-
-cat > /etc/puppet/puppet.conf <<EOF
-[main]
-logdir=/var/log/puppet
-vardir=/var/lib/puppet
-ssldir=/var/lib/puppet/ssl
-rundir=/var/run/puppet
-factpath=$vardir/lib/facter
-templatedir=$confdir/templates
-pluginsync=true
-
-[master]
-# These are needed when the puppetmaster is run by passenger
-# and can safely be removed if webrick is used.
-ssl_client_header = SSL_CLIENT_S_DN
-ssl_client_verify_header = SSL_CLIENT_VERIFY
-
-[agent]
-report=true
-environment=$SCRIPT_ENVIRONMENT
+# Add everyone's keys
+echo >> /root/.ssh/authorized_keys << EOF
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfNTpIAkk0LPvOM+9cav4jbXYuiivAOJ/b3ulLPnfguzbSwQXqEXsu8FvIx8QoTTAOUx4v7VvMThrDkQp2uQUVAWRZy2WW3zLk4piZjLN9UDnhQQYu9obdSqeAQAMfMi9tCcIdwfirmjR83+B5OUkW93PP+5Y7pMWExpvH9r6q0w0sOo7S+SnF4RV71KMxNg62AkrgGF8XWZ5EURjCmNy3WH3W1Q1yiHFPKA3yWXMsW42QR3oTu6wcTuC7j1ZwU34v9XROZtIyGyom34/KOr9s6lAinBh1RDbmQxqsGIKvuov8kgTlsnPzzRtKLbFFUggeZflnLLvpWc/ZmSRTWiDUQy+R73NMSbWg6jTPs4lu8jLH2T/Rku6v4/eIbBL5QYstsr6eQ/zDy0eofoORPLv3DoDIh9+645fwB2wonXeNj04mtky5cnJRctieJh5Qe3C4m+jbfyHDR0EngIrvEvyjT1SoazOJv7vneRCV2F8mWxbMmkOjgOnX/4N8iJgDhWylxwDE6MIqNDVM6mnzpM9j4XHLnRUBcQJIViOs/SxaJIqWi8I6E08QBKV6JlP+UJdywXsq1Kue7aab6ilXmGf3+xn9LFi2BOf2paABwGWyE/ZnzKeRLokUO38t4c0x1hDFU5w0tH9kV1BTeeMO0LZbMz4V9yCNP9d4PdR8Epc9qQ== miguel.laginha@researchresearch.com
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN9y6BDd2637FD4mFQdEGg/jqmnJDThdid6ezlzIsAReWOjy3P46PCVmRQP0+/E2WE6MY4AxrX19bwuT167ENAzf2Ry9SqIJcRy/YWscYKvApqUuaRJuMFGYinMyo9XH7a+aG6re9NG5yUQ9b3DaUyncKDJvJPgcPOQAHJWt9N1nbhvDfMW8y2ufO67MZ8TdbWPQ1X3GBLZuu3+ETdNfRIoSc3WpGc7AvlYRlqfB+ZcJyd+wR5WVT4HFSkPhLbhWBO5/yo/EYR0AmEkMLRiDNRHZ9f4dQ+N3gTXqTtO4ls+ZZm1HuO0FuPIDXbzaNz7AwJe/RsEy0zWRK78Znod+Gf
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0RoWMv8pGnN1T/OKbA8j70G66p0b9k+L50kLmJ1lcNZ7ZoFkYRV0YVyjlP9xoelVQjcTu/CKQsF3k+5K3mDiL7LwPXliWvLd/ENbsuapjzuyYV61v+tPyiuoIRc/3uP0bs0ASfZqH8WR9bO8z8ibEItp/5Q3rjz5VLzQVglkhNVVnqQzfAv1FqauG6zELFNwfXXmuVi/6eHyo88ywc/+KOC53e8zleaRscQQxBsxmCOi31bBLyssnFywRnVN/UBjqTZYfeP6crz/oJH0nXm14JYpieQNfabxzv7CP8nK1lqPt0wZHeq6DqhRmUWReSIpqecGYxl4QcPZ+gBW3yyHf david@Galileo
 EOF
+# for both root and ubuntu (for the moment)
+cat /root/.ssh/authorized_keys > /home/ubuntu/.ssh/authorized_keys
 
-cat > /etc/default/puppet <<EOF
-# Defaults for puppet - sourced by /etc/init.d/puppet
+export DEBIAN_FRONTEND=noninteractive
+apt -qq update && apt -qq --assume-yes upgrade
+apt -qq --assume-yes install python-minimal
 
-# Start puppet on boot?
-START=yes
+echo "Setup complete, needs a reboot to complete."
 
-# Startup options
-DAEMON_OPTS=""
-EOF
-
-# Install rubygems (do not use the installation that came w/ OS)
-URL="http://production.cf.rubygems.org/rubygems/rubygems-1.3.7.tgz"
-PACKAGE=$(echo $URL | sed "s/\.[^\.]*$//; s/^.*\///")
-
-cd $(mktemp -d /tmp/install_rubygems.XXXXXXXXXX) && \
-wget -c -t10 -T20 --no-verbose $URL && \
-tar xfz $PACKAGE.tgz && \
-cd $PACKAGE && \
-ruby setup.rb
-
-update-alternatives --install /usr/bin/gem gem /usr/bin/gem1.8 1
-gem install stomp
-
-# Open up the puppet devel repos
-sed -i 's/# deb /deb /g' /etc/apt/sources.list.d/puppetlabs.list
-apt-get -qq update
-
-# MCollective server (i.e., on each of the cluster nodes)
-apt-get -qq -y install mcollective
-
-# Agent plugins
-apt-get -qq -y install mcollective-puppet-agent mcollective-package-agent mcollective-service-agent mcollective-nrpe-agent
-
-# MCollective config
-cat > /etc/mcollective/server.cfg <<EOF
-# main config
-libdir = /usr/share/mcollective/plugins
-logfile = /var/log/mcollective.log
-daemonize = 1
-keeplogs = 3
-max_log_size = 10240
-loglevel = info
-identity = $SCRIPT_HOSTNAME
-registerinterval = 300
-
-# connector plugin config
-connector = activemq
-plugin.activemq.pool.size = 1
-plugin.activemq.pool.1.host = puppet
-plugin.activemq.pool.1.port = 61613
-plugin.activemq.pool.1.user = mcollective
-plugin.activemq.pool.1.password = marionette
-
-# facts
-factsource = yaml
-plugin.yaml = /etc/mcollective/facts.yaml
-
-# security plugin config
-securityprovider = psk
-plugin.psk = abcdefghj
-EOF
-
-service mcollective restart
-
-echo "Setup complete. Needs a reboot to take host change before puppet runs."

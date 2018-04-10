@@ -1,7 +1,7 @@
 {
     "name": "qa",
-    "account": "sakaigerqa",
-    "datacenter": "eu-ams-1",
+    "account": "aws+unitystaging@researchresearch.com", 
+    "datacenter": "eu-west-1",
     "nodes": {
         "puppet": ["puppet"],
         "qa": 4,

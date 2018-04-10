@@ -1,92 +1,134 @@
 {
     "activity": {
         "system": {
-            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
-            "package": "Sakaigerstaging_1GB"
+            "datasetUrn": "ami-8fd760f6",
+            "package": "t2.medium",
+            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "tags": [ ]
         }
     },
     "activity-cache": {
         "system": {
-            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
-            "package": "Sakaigerstaging_2GB"
+            "datasetUrn": "ami-8fd760f6",
+            "package": "t2.medium",
+            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "tags": [ ]
         }
     },
     "app": {
         "system": {
-            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
-            "package": "Sakaigerstaging_1GB"
+            "datasetUrn": "ami-8fd760f6",
+            "package": "t2.medium",
+            "rootdisk": "20",
+            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "services": ["hilary"],
+            "tags": [ { "environment": "production" } ]
         }
     },
     "bastion": {
         "system": {
-            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
-            "package": "Sakaigerstaging_4GB"
+            "datasetUrn": "ami-8fd760f6",
+            "package": "t2.micro",
+            "rootdisk": "20",
+            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6", "sg-22c5be59"],
+            "services": ["deploy"],
+            "tags": [ ]
         }
     },
     "cache": {
         "system": {
-            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
-            "package": "Sakaigerstaging_512MB"
+            "datasetUrn": "ami-8fd760f6",
+            "package": "t2.medium",
+            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "tags": [ ]
         }
     },
     "db": {
         "system": {
-            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
-            "package": "Sakaigerstaging_8GB"
+            "datasetUrn": "ami-8fd760f6",
+            "package": "m5.xlarge",
+            "rootdisk": "50",
+            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "services": ["cassandra"],
+            "tags": [ ]
         }
     },
     "etherpad": {
         "system": {
-            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
-            "package": "Sakaigerstaging_512MB"
+            "datasetUrn": "ami-8fd760f6",
+            "package": "t2.medium",
+            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "tags": [ ]
         }
     },
     "monitor": {
         "system": {
-            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
-            "package": "Sakaigerstaging_4GB"
+            "datasetUrn": "ami-8fd760f6",
+            "package": "t2.medium",
+            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "tags": [ ]
         }
     },
     "mq": {
         "system": {
-            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
-            "package": "Sakaigerstaging_512MB"
+            "datasetUrn": "ami-8fd760f6",
+            "package": "t2.medium",
+            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "tags": [ ]
         }
     },
     "pp": {
         "system": {
-            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
-            "package": "Sakaigerstaging_1GB"
+            "datasetUrn": "ami-8fd760f6",
+            "package": "t2.medium",
+            "rootdisk": 20,
+            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "services": [ "hilary" ],
+            "tags": [ { "environment": "production" } ]
+        }
+    },
+    "qa": {
+        "system": {
+            "datasetUrn": "ami-8fd760f6",
+            "package": "t2.medium",
+            "rootdisk": "20",
+            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6", "sg-133b4168"],
+            "services": [ "hilary" ],
+            "tags": { "environment": "qa0" }
         }
     },
     "proxy": {
         "system": {
-            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
-            "package": "Sakaigerstaging_512MB"
-        }
-    },
-    "puppet": {
-        "system": {
-            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
-            "package": "Sakaigerstaging_2GB"
+            "datasetUrn": "ami-8fd760f6",
+            "package": "t2.medium",
+            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "tags": [ ]
         }
     },
     "search": {
         "system": {
-            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
-            "package": "Sakaigerstaging_4GB"
+            "datasetUrn": "ami-8fd760f6",
+            "package": "t2.medium",
+            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "services": [ "elasticsearch" ],
+            "tags": [ ]
         }
     },
     "syslog": {
         "system": {
-            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
-            "package": "Sakaigerstaging_512MB"
+            "datasetUrn": "ami-8fd760f6",
+            "package": "t2.medium",
+            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "tags": [ ]
         }
     },
     "web": {
         "system": {
-            "datasetUrn": "3162a91e-8b5d-11e2-a78f-9780813f9142",
-            "package": "Sakaigerstaging_4GB"
+            "datasetUrn": "ami-8fd760f6",
+            "package": "t2.medium",
+            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6", "sg-133b4168"],
+            "services": [ "nginx", "shibboleth" ],
+            "tags": [ ]
         }
     }
 }

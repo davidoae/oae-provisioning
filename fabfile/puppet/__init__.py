@@ -8,6 +8,7 @@ import fabric
 def run():
     """Immediately start a puppet run, force-stopping any currently running puppet run."""
     stop()
+    fabric.api.run('puppet agent --enable', warn_only=True)
     fabric.api.run('puppet agent --no-daemonize --onetime --verbose', warn_only=True)
     fabric.api.run('service puppet start')
 

@@ -10,6 +10,7 @@ env.timeout = 10
 env.connection_attempts = 6
 env.user = 'root'
 
+##### NOTE I should print instance ids when I get them
 
 @task
 def ulous(environment):
@@ -47,41 +48,48 @@ def provision_machines(environment, machine_names=None):
     machine_names = slapchop.to_machine_array(machine_names)
     slapchop.bootstrap(environment=environment, machine_names=machine_names, yes=True)
     slapchop.fabric_setup(environment=environment)
-    internal_provision_machines(environment=environment, machine_names=machine_names, puppet_ip=env.puppet_internal_ip)
+#    internal_provision_machines(environment=environment, machine_names=machine_names, puppet_ip=env.puppet_internal_ip)
+    internal_provision_machines(environment=environment, machine_names=machine_names)
 
 @task
 def internal_provision_puppet(environment):
+
+    # start with ubuntu user until beforereboot resets root's ssh config
+    env.user = 'ubuntu'
 
     # Put the provision scripts on the remote server
     put('scripts/puppet-beforereboot.sh', 'puppet-beforereboot.sh', mode=0755)
     put('scripts/puppet-afterreboot.sh', 'puppet-afterreboot.sh', mode=0755)
 
     # Run the before reboot, reboot, then the after reboot
-    run('./puppet-beforereboot.sh')
+    run('sudo ./puppet-beforereboot.sh')
     slapchop.reboot(environment=environment, machine_names=['puppet'], yes=True)
 
+    # switch back to root
+    env.user = 'root'
+
     print 'Running puppet provisioning script. This will take some time and be silent. Hang in there.'
-    run('./puppet-afterreboot.sh %s' % environment)
+    run('/home/ubuntu/puppet-afterreboot.sh %s' % environment)
 
-    # Download Java
-    print 'Downloading jdk6 on to the puppet machine. This will take some time and be silent. Hang in there.'
-    with cd('/etc/puppet/puppet-hilary/modules/oracle-java/files'):
-        run('wget --no-verbose https://s3-eu-west-1.amazonaws.com/oae-performance-files/jdk-7u65-linux-x64.gz')
-
-    # Place the common_hiera_secure if one is specified
-    hiera_secure_path = '%s/common_hiera_secure.json' % environment
-    if (os.path.exists(hiera_secure_path)):
-        put(hiera_secure_path, '/etc/puppet/puppet-hilary/environments/%s/hiera/common_hiera_secure.json' % environment)
-
-    # puppet run and start agent
-    # has to be run twice to get puppetdb and nagios running correctly
-    print 'Doing puppet run, twice, for puppetdb and nagios.'
-    run('puppet agent --onetime --verbose --no-daemonize')
-    run('puppet agent --onetime --verbose --no-daemonize')
-    run('service puppet start')
+##    # Download Java
+##    print 'Downloading jdk6 on to the puppet machine. This will take some time and be silent. Hang in there.'
+##    with cd('/etc/puppet/puppet-hilary/modules/oracle-java/files'):
+##        run('wget --no-verbose https://s3-eu-west-1.amazonaws.com/oae-performance-files/jdk-7u65-linux-x64.gz')
+##
+##    # Place the common_hiera_secure if one is specified
+##    hiera_secure_path = '%s/common_hiera_secure.json' % environment
+##    if (os.path.exists(hiera_secure_path)):
+##        put(hiera_secure_path, '/etc/puppet/puppet-hilary/environments/%s/hiera/common_hiera_secure.json' % environment)
+##
+##    # puppet run and start agent
+##    # has to be run twice to get puppetdb and nagios running correctly
+##    print 'Doing puppet run, twice, for puppetdb and nagios.'
+##    run('puppet agent --onetime --verbose --no-daemonize')
+##    run('puppet agent --onetime --verbose --no-daemonize')
+##    run('service puppet start')
 
 @task
-def internal_provision_machines(environment, puppet_ip, machine_names=None):
+def internal_provision_machines(environment, machine_names=None):
     for provision_group in env.provision_groups:
         # Only provision the machines we specified
         if machine_names != None:
@@ -95,23 +103,40 @@ def internal_provision_machines(environment, puppet_ip, machine_names=None):
         # Only provision if anything was left in this array
         if (len(provision_group['names']) > 0):
             # Prepare the machine
-            execute(internal_provision_machine, environment=environment, puppet_ip=puppet_ip, provision_group=provision_group, hosts=provision_group['hosts'])
+#            execute(internal_provision_machine, environment=environment, puppet_ip=puppet_ip, provision_group=provision_group, hosts=provision_group['hosts'])
+            execute(internal_provision_machine, environment=environment, provision_group=provision_group, hosts=provision_group['hosts'])
 
             # Reboot the machine so the hostname can take effect
             slapchop.reboot(environment=environment, machine_names=provision_group['names'], yes=True)
 
+            # basic server setup
+            execute(internal_setup_machine, environment=environment, provision_group=provision_group, hosts=provision_group['hosts'])
+
             # Register the machine with the puppet master node and apply the puppet catalogue
-            execute(puppet.run, hosts=provision_group['hosts'])
-
-            # Rebooting again will help pick up service or OS configuration changes that puppet performed that require restarts
-            slapchop.reboot(environment=environment, machine_names=provision_group['names'], yes=True)
-
+#            execute(puppet.run, hosts=provision_group['hosts'])
 
 @task
 @parallel
-def internal_provision_machine(environment, puppet_ip, provision_group):
+def internal_provision_machine(environment, provision_group):
     name = provision_group['names'][provision_group['hosts'].index(env.host_string)]
+
+    # Use ubuntu user until root's ssh config is updated
+    env.user = 'ubuntu'
     put('scripts/ubuntu-beforereboot.sh', 'ubuntu-beforereboot.sh', mode=0755)
 
     print 'Running machine provisioning script. This will take some time and be silent. Hang in there.'
-    run('./ubuntu-beforereboot.sh %s %s %s' % (environment, name, puppet_ip))
+    run('sudo ./ubuntu-beforereboot.sh %s %s' % (environment, name))
+
+    # Reset user back to root
+    env.user = 'root'
+
+@task
+@parallel
+def internal_setup_machine(environment, provision_group):
+    name = provision_group['names'][provision_group['hosts'].index(env.host_string)]
+
+    shortname = name.rstrip('0123456789')
+    print('Running %s setup' % shortname)
+    put('scripts/%s-ar.sh' % shortname, '%s-ar.sh' % shortname, mode=0755)
+    run('sudo ./%s-ar.sh' % shortname)
+

@@ -9,8 +9,8 @@ import types
 def bootstrap(environment, machine_names=None, yes=False):
     local('slapchop bootstrap -d %s %s' % (environment, get_slapchop_args(machine_names, yes)))
 
-    print 'Sleeping 10 seconds to allow sshd time to start up'
-    time.sleep(10)
+    print 'Sleeping 15 seconds to allow sshd time to start up'
+    time.sleep(15)
 
 
 @task
@@ -27,8 +27,8 @@ def reboot(environment, machine_names=None, yes=False):
     # Disconnect to purge cached ssh connections that were connected to these machines that we've rebooted
     disconnect_all()
 
-    print 'Sleeping 10 seconds to allow sshd time to start up'
-    time.sleep(10)
+    print 'Sleeping a way too long 90 seconds waiting for aws slow reboots'
+    time.sleep(90)
 
 
 def to_machine_array(machine_names=None):

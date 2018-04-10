@@ -1,30 +1,33 @@
 {
     "name": "staging",
-    "account": "sakaigerstaging",
-    "datacenter": "eu-ams-1",
+    "account": "aws+unitystaging@researchresearch.com",
+    "datacenter": "eu-west-1",
+    "keyname": "unity_aws_staging_id_rsa",
     "nodes": {
-        "activity": 1,
-        "activity-cache": 0,
+        "activity": 3,
+        "activity-cache": 2,
         "app": 4,
         "bastion": ["bastion"],
-        "cache": 1,
-        "etherpad": 1,
+        "cache": 2,
+        "etherpad": 3,
         "db": 3,
-        "monitor": 0,
-        "mq": 1,
-        "pp": 1,
-        "proxy": 0,
-        "puppet": ["puppet"],
-        "search": 1,
-        "web": 1
+        "monitor": ["monitor"],
+        "mq": 2,
+        "pp": 3,
+        "proxy": 1,
+        "puppet": 0,
+        "search": 2,
+        "syslog": ["syslog"],
+        "web": 2,
+        "qa": 2
     },
     "provisionGroups": [
         ["puppet"],
-        ["/^activity-cache/", "/^cache/", "/^db/", "/^mq/", "/^search/", "monitor", "bastion"],
+        ["/^activity-cache/", "/^cache/", "/^db/", "/^mq/", "/^search/", "monitor", "bastion", "syslog"],
         ["/^proxy/", "/^etherpad/"],
         ["app0"],
         ["/^app/", "/^activity/"],
         ["/^web/"],
-        ["/^pp/"]
+        ["/^pp/", "/^qa/"]
     ]
 }
