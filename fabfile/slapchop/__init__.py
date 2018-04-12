@@ -27,8 +27,8 @@ def reboot(environment, machine_names=None, yes=False):
     # Disconnect to purge cached ssh connections that were connected to these machines that we've rebooted
     disconnect_all()
 
-    print 'Sleeping a way too long 90 seconds waiting for aws slow reboots'
-    time.sleep(90)
+    print 'Sleeping a way too long 60 seconds waiting for aws slow reboots'
+    time.sleep(60)
 
 
 def to_machine_array(machine_names=None):
