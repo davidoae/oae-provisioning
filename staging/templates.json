@@ -4,6 +4,7 @@
             "datasetUrn": "ami-8fd760f6",
             "package": "t2.medium",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "services": [ "hilary" ],
             "tags": { "environment": "staging" }
         }
     },
@@ -12,7 +13,7 @@
             "datasetUrn": "ami-8fd760f6",
             "package": "t2.medium",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
-            "services": ["redis", "activitycache"],
+            "services": [ "redis", "activitycache" ],
             "tags": { "environment": "staging" }
         }
     },
@@ -22,7 +23,7 @@
             "package": "t2.medium",
             "rootdisk": "20",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
-            "services": ["hilary"],
+            "services": [ "hilary" ],
             "tags": { "environment": "staging" }
         }
     },
@@ -32,7 +33,7 @@
             "package": "t2.micro",
             "rootdisk": "20",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6", "sg-22c5be59"],
-            "services": ["deploy"],
+            "services": [ "deploy" ],
             "tags": { "environment": "staging" }
         }
     },
@@ -41,7 +42,7 @@
             "datasetUrn": "ami-8fd760f6",
             "package": "t2.medium",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
-            "services": ["redis", "cache"],
+            "services": [ "redis", "cache" ],
             "tags": { "environment": "staging" }
         }
     },
@@ -51,7 +52,7 @@
             "package": "m5.xlarge",
             "rootdisk": "50",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
-            "services": ["cassandra"],
+            "services": [ "cassandra" ],
             "tags": { "environment": "staging" }
         }
     },
@@ -60,6 +61,7 @@
             "datasetUrn": "ami-8fd760f6",
             "package": "t2.medium",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "services": [ "etherpad" ],
             "tags": { "environment": "staging" }
         }
     },
@@ -76,7 +78,7 @@
             "datasetUrn": "ami-8fd760f6",
             "package": "t2.medium",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
-            "services": "rabbitmq",
+            "services": [ "rabbitmq" ],
             "tags": { "environment": "staging" }
         }
     },
@@ -105,6 +107,7 @@
             "datasetUrn": "ami-8fd760f6",
             "package": "t2.medium",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "services": [ "haproxy" ],
             "tags": { "environment": "staging" }
         }
     },
@@ -122,6 +125,7 @@
             "datasetUrn": "ami-8fd760f6",
             "package": "t2.medium",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "services": [ "syslog" ],
             "tags": { "environment": "staging" }
         }
     },

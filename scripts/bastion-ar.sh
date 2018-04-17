@@ -338,6 +338,6 @@ print_status "Run \`apt-get install ${NODEPKG}\` (as root) to install ${NODENAME
 setup
 
 apt -qq update
-apt -qq --assume-yes install nodejs
+apt -qq --assume-yes install nodejs make g++
 echo "bastion setup complete"
 
