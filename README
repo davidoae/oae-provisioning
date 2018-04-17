@@ -1,0 +1,12 @@
+
+# ***** Note that you'll need slapchop in your PATH and be in root of oae-provision repo
+
+# lists state of environment
+slapchop -d staging/
+
+# Destroys all staging servers but skips the qa ones
+slapchop -d staging/ -i // -x /qa[0-2]/ destroy
+
+# Alias for kicking all non-qa servers, better to use groups but don't know it yet
+alias fabulous="fab --show=debug provision_machines:environment=staging,machine_names='activity0;activity1;activity2;activity-cache0;activity-cache1;app0;app1;app2;app3;bastion;cache0;cache1;etherpad0;etherpad1;db0;db1;db2;mq0;mq1;pp0;pp1;pp2;proxy0;search0;search1;syslog;web0;web1'"
+
