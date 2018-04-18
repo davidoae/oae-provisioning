@@ -4,6 +4,7 @@
 #
 
 NODE_VERSION=8.11.1
+NPM_VERSION=4.6.1
 
 export DEBIAN_FRONTEND=noninteractive
 # pp servers only maybe...
@@ -22,6 +23,9 @@ ln -s /usr/src/node-v${NODE_VERSION}-linux-x64/lib/node_modules/pm2/bin/pm2 /etc
 ln -s /etc/alternatives/node /usr/bin/node
 ln -s /etc/alternatives/npm /usr/bin/npm
 ln -s /etc/alternatives/pm2 /usr/bin/pm2
+
+# Need older verson of npm
+npm install -g npm@$NPM_VERSION
 
 echo 'qa setup done'
 
