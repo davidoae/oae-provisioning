@@ -3,7 +3,7 @@
 # some of this should be in ansible, maybe all of it
 #
 
-NODE_VERSION=6.11.5
+NODE_VERSION=8.11.1
 
 export DEBIAN_FRONTEND=noninteractive
 

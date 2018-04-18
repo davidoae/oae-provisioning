@@ -3,7 +3,7 @@
 # some of this should be in ansible, maybe all of it
 #
 
-NODE_VERSION=6.11.5
+NODE_VERSION=8.11.1
 
 # Ubuntu doesn't seem to provide cassandra themselves so grabbing it from apache
 # openjdk-9-jre seems to cause cassandra silent segfault
