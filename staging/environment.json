@@ -4,15 +4,16 @@
     "datacenter": "eu-west-1",
     "keyname": "unity_aws_staging_id_rsa",
     "nodes": {
-        "activity": 3,
+        "activity": 2,
         "activity-cache": 2,
-        "app": 4,
+        "app": 2,
         "bastion": ["bastion"],
         "cache": 2,
         "etherpad": 2,
+        "nagios": ["nagios"],
         "db": 3,
         "mq": 2,
-        "pp": 3,
+        "pp": 2,
         "proxy": 1,
         "search": 2,
         "syslog": ["syslog"],
@@ -24,7 +25,7 @@
         ["/^proxy/", "/^etherpad/"],
         ["app0"],
         ["/^app/", "/^activity/"],
-        ["/^web/"],
+        ["/^web/", "nagios"],
         ["/^pp/", "/^qa/"]
     ]
 }

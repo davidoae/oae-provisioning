@@ -10,6 +10,7 @@ export DEBIAN_FRONTEND=noninteractive
 # pp servers only maybe...
 apt -qq --assume-yes --no-install-recommends install openjdk-8-jre libreoffice libreoffice-writer ure libreoffice-java-common libreoffice-core libreoffice-common pdf2htmlex poppler-utils graphicsmagick ghostscript
 apt -qq --assume-yes install abiword tidy
+apt -qq --assume-yes install make g++
 
 # Download and extract node
 cd /usr/src
@@ -26,6 +27,11 @@ ln -s /etc/alternatives/pm2 /usr/bin/pm2
 
 # Need older verson of npm
 npm install -g npm@$NPM_VERSION
+npm install -g grunt-cli
+
+# symlink for grunt
+ln -s /usr/src/node-v${NODE_VERSION}-linux-x64/bin/grunt /etc/alternatives/grunt
+ln -s /etc/alternatives/grunt /usr/bin/grunt
 
 echo 'qa setup done'
 

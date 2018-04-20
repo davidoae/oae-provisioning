@@ -15,7 +15,7 @@ apt -qq update
 export DEBIAN_FRONTEND=noninteractive
 apt -qq --assume-yes install cassandra postfix nginx redis-server elasticsearch rabbitmq-server
 apt -qq --assume-yes --no-install-recommends install libreoffice libreoffice-writer ure libreoffice-java-common libreoffice-core libreoffice-common pdf2htmlex poppler-utils graphicsmagick ghostscript
-apt -qq --assume-yes install abiword tidy
+apt -qq --assume-yes install abiword tidy make g++
 
 # Download and extract node
 cd /usr/src

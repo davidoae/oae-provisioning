@@ -8,7 +8,9 @@ SCRIPT_ENVIRONMENT=$1
 SCRIPT_HOSTNAME=$2
 
 # Set the host of the machine. Will need a reboot after this
-echo $SCRIPT_HOSTNAME > /etc/hostname
+#echo $SCRIPT_HOSTNAME > /etc/hostname
+hostnamectl set-hostname $SCRIPT_HOSTNAME
+
 sed -i "s/^127\.0\.0\.1[[:space:]]*localhost/127.0.0.1 $SCRIPT_HOSTNAME localhost/" /etc/hosts
 # Also allow root access via ssh
 sed -i 's/.* ssh-rsa /ssh-rsa /' /root/.ssh/authorized_keys
@@ -25,6 +27,11 @@ cat /root/.ssh/authorized_keys > /home/ubuntu/.ssh/authorized_keys
 export DEBIAN_FRONTEND=noninteractive
 apt -qq update && apt -qq --assume-yes upgrade
 apt -qq --assume-yes install python-minimal
+
+# aws or ubuntu seem to have broken this somehow, maybe dhcp related but that's a guess
+# although it is a behaviour change
+# So we make up for it by setting the hostname again next boot
+/bin/echo -e "#!/bin/bash\nhostnamectl set-hostname $SCRIPT_HOSTNAME\n" > /etc/rc.local
 
 echo "Setup complete, needs a reboot to complete."
 
