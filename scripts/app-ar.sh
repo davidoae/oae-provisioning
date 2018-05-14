@@ -25,6 +25,9 @@ ln -s /etc/alternatives/pm2 /usr/bin/pm2
 npm install -g npm@$NPM_VERSION
 npm install -g grunt-cli
 
+# needed for hilary logging
+npm install -g bunyan-syslog-latest
+
 # symlink for grunt
 ln -s /usr/src/node-v${NODE_VERSION}-linux-x64/bin/grunt /etc/alternatives/grunt
 ln -s /etc/alternatives/grunt /usr/bin/grunt
