@@ -27,7 +27,7 @@ npm install -g npm@$NPM_VERSION
 # For making installing node modules :(
 apt -qq --assume-yes install make g++
 
-npm install -g grunt-cli shipit-cli
+npm install -g grunt-cli shipit-cli ssh-pool
 ln -s /usr/src/node-v${NODE_VERSION}-linux-x64/bin/grunt /etc/alternatives/grunt
 ln -s /usr/src/node-v${NODE_VERSION}-linux-x64/bin/shipit /etc/alternatives/shipit
 ln -s /etc/alternatives/grunt /usr/bin/grunt
