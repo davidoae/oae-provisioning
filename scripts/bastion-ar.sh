@@ -24,6 +24,11 @@ ln -s /etc/alternatives/pm2 /usr/bin/pm2
 # Need older verson of npm
 npm install -g npm@$NPM_VERSION
 
+# needed for script interraction with api
+npm install -g oaesh
+ln -s /usr/src/node-v${NODE_VERSION}-linux-x64/bin/oaesh /etc/alternatives/oaesh
+ln -s /etc/alternatives/oaesh /usr/bin/oaesh
+
 # For making installing node modules :(
 apt -qq --assume-yes install make g++
 

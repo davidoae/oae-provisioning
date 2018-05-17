@@ -7,6 +7,10 @@ NODE_VERSION=8.11.1
 NPM_VERSION=4.6.1
 
 export DEBIAN_FRONTEND=noninteractive
+# pp servers only maybe...
+apt -qq --assume-yes --no-install-recommends install openjdk-8-jre libreoffice libreoffice-writer ure libreoffice-java-common libreoffice-core libreoffice-common pdf2htmlex poppler-utils graphicsmagick ghostscript
+apt -qq --assume-yes install abiword tidy
+apt -qq --assume-yes install make g++
 
 # Download and extract node
 cd /usr/src
