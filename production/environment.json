@@ -1,32 +1,31 @@
 {
     "name": "production",
-    "account": "sakaigerproduction",
-    "datacenter": "eu-ams-1",
+    "account": "aws+unityproduction@researchresearch.com",
+    "datacenter": "eu-west-1",
+    "keyname": "unity_aws_production_id_rsa",
     "nodes": {
-        "activity": 3,
+        "activity": 2,
         "activity-cache": 2,
-        "app": 4,
+        "app": 2,
         "bastion": ["bastion"],
         "cache": 2,
+        "etherpad": 2,
+        "nagios": ["nagios"],
         "db": 3,
-        "etherpad": 3,
-        "monitor": ["monitor"],
         "mq": 2,
-        "pp": 3,
+        "pp": 2,
         "proxy": 1,
-        "puppet": ["puppet"],
         "search": 2,
         "syslog": ["syslog"],
-        "web": 2
+        "web": 2,
+        "qa": 2
     },
     "provisionGroups": [
-        ["puppet"],
-        ["syslog"],
-        ["/^activity-cache/", "/^cache/", "/^db/", "/^mq/", "/^search/", "monitor", "bastion"],
+        ["/^activity-cache/", "/^cache/", "/^db/", "/^mq/", "/^search/", "bastion", "syslog"],
         ["/^proxy/", "/^etherpad/"],
         ["app0"],
         ["/^app/", "/^activity/"],
-        ["/^web/"],
-        ["/^pp/"]
+        ["/^web/", "nagios"],
+        ["/^pp/", "/^qa/"]
     ]
 }
