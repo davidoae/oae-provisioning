@@ -27,42 +27,5 @@ cd $ECDIR
 npm install --slient
 chown -R ethercalc.ethercalc $ECDIR
 
-# ethercalc systemd
-cat > /etc/systemd/system/multi-user.target.wants/ethercalc.service <<EOF
-[Unit]
-Description=Ethercalc
-Documentation=https://github.com/oaeproject/oae-ethercalc-docker
-After=network.target
-
-[Service]
-Type=forking
-User=ethercalc
-Group=ethercalc
-LimitNOFILE=infinity
-LimitNPROC=infinity
-LimitCORE=infinity
-Environment=PATH=/usr/src/node-v${NODE_VERSION}-linux-x64/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
-Environment=REDIS_HOST=proxy0
-Environment=REDIS_PORT=6379
-Environment=RABBIT_HOST=mq0
-Environment=RABBIT_PORT=5672
-Environment=PM2_HOME=/opt/ethercalc/.pm2
-Environment=NODE_ENV=production
-PIDFile=/opt/ethercalc/.pm2/pm2.pid
-
-ExecStart=/usr/src/node-v${NODE_VERSION}-linux-x64/lib/node_modules/pm2/bin/pm2 resurrect
-ExecReload=/usr/src/node-v${NODE_VERSION}-linux-x64/lib/node_modules/pm2/bin/pm2 reload all
-ExecStop=/usr/src/node-v${NODE_VERSION}-linux-x64/lib/node_modules/pm2/bin/pm2 kill
-
-[Install]
-WantedBy=multi-user.target
-
-EOF
-
-# at this point everything should be ready
-systemctl daemon-reload
-# systemd start does a "pm2 resurrect" which means it needs a manual start the very first time
-# as other server's hostnames are not yet available ansible will perform the initial app startup
-
 echo "ethercalc setup done"
 
