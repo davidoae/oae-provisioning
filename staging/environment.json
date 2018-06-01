@@ -10,6 +10,7 @@
         "bastion": ["bastion"],
         "cache": 2,
         "etherpad": 2,
+        "ethercalc": 2,
         "nagios": ["nagios"],
         "db": 3,
         "mq": 2,
@@ -22,7 +23,7 @@
     },
     "provisionGroups": [
         ["/^activity-cache/", "/^cache/", "/^db/", "/^mq/", "/^search/", "bastion", "syslog"],
-        ["/^proxy/", "/^etherpad/"],
+        ["/^proxy/", "/^etherpad/", "/^ethercalc/"],
         ["app0"],
         ["/^app/", "/^activity/"],
         ["/^web/", "nagios"],
