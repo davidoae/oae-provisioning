@@ -40,7 +40,7 @@
     "cache": {
         "system": {
             "datasetUrn": "ami-8fd760f6",
-            "package": "t2.medium",
+            "package": "t2.small",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
             "services": [ "redis", "cache" ],
             "tags": { "environment": "production" }
@@ -65,18 +65,19 @@
             "tags": { "environment": "production" }
         }
     },
-    "monitor": {
+    "ethercalc": {
         "system": {
             "datasetUrn": "ami-8fd760f6",
             "package": "t2.medium",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
+            "services": [ "ethercalc" ],
             "tags": { "environment": "production" }
         }
     },
     "mq": {
         "system": {
             "datasetUrn": "ami-8fd760f6",
-            "package": "t2.medium",
+            "package": "t2.small",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
             "services": [ "rabbitmq" ],
             "tags": { "environment": "production" }
@@ -85,7 +86,7 @@
     "nagios": {
         "system": {
             "datasetUrn": "ami-8fd760f6",
-            "package": "t2.medium",
+            "package": "t2.small",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
             "services": [ "nagios" ],
             "tags": { "environment": "production" }
@@ -104,7 +105,7 @@
     "proxy": {
         "system": {
             "datasetUrn": "ami-8fd760f6",
-            "package": "t2.medium",
+            "package": "t2.small",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
             "services": [ "haproxy" ],
             "tags": { "environment": "production" }
@@ -122,7 +123,7 @@
     "syslog": {
         "system": {
             "datasetUrn": "ami-8fd760f6",
-            "package": "t2.medium",
+            "package": "t2.small",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
             "services": [ "syslog" ],
             "tags": { "environment": "production" }

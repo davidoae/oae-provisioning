@@ -40,7 +40,7 @@
     "cache": {
         "system": {
             "datasetUrn": "ami-8fd760f6",
-            "package": "t2.medium",
+            "package": "t2.small",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
             "services": [ "redis", "cache" ],
             "tags": { "environment": "staging" }
@@ -74,18 +74,10 @@
             "tags": { "environment": "staging" }
         }
     },
-    "monitor": {
-        "system": {
-            "datasetUrn": "ami-8fd760f6",
-            "package": "t2.medium",
-            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
-            "tags": { "environment": "staging" }
-        }
-    },
     "mq": {
         "system": {
             "datasetUrn": "ami-8fd760f6",
-            "package": "t2.medium",
+            "package": "t2.small",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
             "services": [ "rabbitmq" ],
             "tags": { "environment": "staging" }
@@ -94,7 +86,7 @@
     "nagios": {
         "system": {
             "datasetUrn": "ami-8fd760f6",
-            "package": "t2.medium",
+            "package": "t2.small",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
             "services": [ "nagios" ],
             "tags": { "environment": "staging" }
@@ -123,7 +115,7 @@
     "proxy": {
         "system": {
             "datasetUrn": "ami-8fd760f6",
-            "package": "t2.medium",
+            "package": "t2.small",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
             "services": [ "haproxy" ],
             "tags": { "environment": "staging" }
@@ -141,7 +133,7 @@
     "syslog": {
         "system": {
             "datasetUrn": "ami-8fd760f6",
-            "package": "t2.medium",
+            "package": "t2.small",
             "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
             "services": [ "syslog" ],
             "tags": { "environment": "staging" }
