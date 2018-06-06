@@ -65,15 +65,6 @@
             "tags": { "environment": "production" }
         }
     },
-    "ethercalc": {
-        "system": {
-            "datasetUrn": "ami-8fd760f6",
-            "package": "t2.medium",
-            "securityGroups": ["sg-2ce3a64b", "sg-bdadc6c6"],
-            "services": [ "ethercalc" ],
-            "tags": { "environment": "production" }
-        }
-    },
     "mq": {
         "system": {
             "datasetUrn": "ami-8fd760f6",
